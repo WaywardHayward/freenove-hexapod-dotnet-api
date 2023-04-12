@@ -10,15 +10,12 @@ namespace hexapod_dotnet.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DataController : ControllerBase
+    public class DataController : HexapodController
     {
-        private readonly ILogger<DataController> _logger;
-        private readonly HexapodCommandInvoker _invoker;
 
         public DataController(ILogger<DataController> logger, HexapodCommandInvoker invoker)
+            :base(logger, invoker)
         {
-            _logger = logger;
-            _invoker = invoker;
         }
 
         [HttpGet("Power")]
@@ -26,7 +23,7 @@ namespace hexapod_dotnet.Controllers
         {
             try
             {
-                var result = await _invoker.InvokeCommand(new PowerCommand().ToString(), true);
+                var result = await _commander.InvokeCommand(new PowerCommand().ToString(), true);
                 var battery1 = result.Split('#')[1];
                 var battery2 = result.Split('#')[2];
                 return Ok(new {
@@ -46,7 +43,7 @@ namespace hexapod_dotnet.Controllers
         {
             try
             {
-                var result = await _invoker.InvokeCommand(new UltrasonicCommand().ToString(), true);
+                var result = await _commander.InvokeCommand(new UltrasonicCommand().ToString(), true);
                 return Ok(new {
                     Distance = result.Split('#').LastOrDefault()?.Trim()
                 });
