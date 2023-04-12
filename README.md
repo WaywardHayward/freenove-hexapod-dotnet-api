@@ -6,7 +6,9 @@ This is a dotnet rest api for the Freenove Hexapod.
 
 To run the api, you need to have dotnet core 7 installed and a Freenove Hexapod.
 
-run the following command to start the api:
+if you debug the application in vscode it should automatically start the api and open the swagger page.
+
+However you can also run the following command to start the api:
 
 ```bash
 dotnet run
