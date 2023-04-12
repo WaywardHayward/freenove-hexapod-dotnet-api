@@ -29,6 +29,6 @@ The following settings can be configured using environment variables or the apps
 | Setting | Environment Variable | Description |
 | ------- | -------------------- | ----------- |
 | Hexapod.Host | Hexapod__Host | The hostname of the hexapod (can be ip or hostname) |
-| Hexapod.Port | Hexapod__Port | The port which the hexapod api is running on |
+| Hexapod.Port | Hexapod__Port | The port which the hexapod api is running on, defaults to 5002 |
 
 
