@@ -21,6 +21,10 @@ public class CalibrationController : HexapodController
     public async Task<ActionResult> CalibrateLeg([FromBody] CalibrateLegCommand command) => 
         await InvokeCommandAsync(command);
 
+    [HttpPost("Save")]
+    public async Task<ActionResult> SaveCalibration() => 
+        await InvokeCommandAsync(new SaveCalibrationCommand());
+
     [HttpPost("Attitude")]
     public async Task<ActionResult> Attitude([FromBody] AttitudeCommand command) => 
         await InvokeCommandAsync(command);
