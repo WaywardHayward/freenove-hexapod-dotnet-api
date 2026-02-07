@@ -1,9 +1,9 @@
-using hexapod_dotnet.Model.Api;
-using hexapod_dotnet.Model.Hexapod.Getters;
-using hexapod_dotnet.Services;
+using Hexapod.Models;
+using Hexapod.Commands;
+using Hexapod.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace hexapod_dotnet.Controllers;
+namespace Hexapod.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

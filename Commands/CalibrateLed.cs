@@ -1,4 +1,4 @@
-namespace hexapod_dotnet.Model.Hexapod.Setters;
+namespace Hexapod.Commands;
 
 public class CalibrateLedCommand
 {

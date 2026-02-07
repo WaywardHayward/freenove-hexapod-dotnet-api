@@ -1,4 +1,4 @@
-namespace hexapod_dotnet.Model.Api;
+namespace Hexapod.Models;
 
 public record PowerResponse(string Battery1, string Battery2);
 

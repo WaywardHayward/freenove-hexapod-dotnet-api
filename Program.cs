@@ -1,5 +1,5 @@
-using hexapod_dotnet.Configuration;
-using hexapod_dotnet.Services;
+using Hexapod.Configuration;
+using Hexapod.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

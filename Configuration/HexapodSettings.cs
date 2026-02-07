@@ -1,4 +1,4 @@
-namespace hexapod_dotnet.Configuration;
+namespace Hexapod.Configuration;
 
 public class HexapodSettings
 {

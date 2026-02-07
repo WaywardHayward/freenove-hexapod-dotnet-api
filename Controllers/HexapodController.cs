@@ -1,7 +1,7 @@
-using hexapod_dotnet.Services;
+using Hexapod.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace hexapod_dotnet.Controllers;
+namespace Hexapod.Controllers;
 
 public abstract class HexapodController : ControllerBase
 {

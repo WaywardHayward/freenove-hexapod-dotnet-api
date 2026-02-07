@@ -1,4 +1,4 @@
-namespace hexapod_dotnet.Model.Hexapod;
+namespace Hexapod.Commands;
 
 public class HexapodCommand
 {

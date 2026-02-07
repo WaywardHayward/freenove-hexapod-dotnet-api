@@ -1,9 +1,9 @@
 using System.Net.Sockets;
 using System.Text;
-using hexapod_dotnet.Configuration;
+using Hexapod.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace hexapod_dotnet.Services;
+namespace Hexapod.Services;
 
 public class HexapodCommandInvoker : IHexapodCommandInvoker
 {

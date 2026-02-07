@@ -1,4 +1,4 @@
-namespace hexapod_dotnet.Services;
+namespace Hexapod.Services;
 
 public interface IHexapodCommandInvoker
 {

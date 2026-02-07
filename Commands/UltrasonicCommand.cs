@@ -1,4 +1,4 @@
-namespace hexapod_dotnet.Model.Hexapod.Getters;
+namespace Hexapod.Commands;
 
 public class UltrasonicCommand
 {
