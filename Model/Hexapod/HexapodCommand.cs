@@ -1,14 +1,9 @@
+namespace hexapod_dotnet.Model.Hexapod;
 
-namespace hexapod_dotnet.Model.Hexapod
+public class HexapodCommand
 {
-    public class HexapodCommand
-    {
-        public Commands Command {get;set;} 
+    public Commands Command { get; set; }
+    public string? Parameters { get; set; }
 
-        public string Parameters {get;set;}
-
-        public override string ToString(){
-            return $"{Command}#{Parameters}";
-        }
-    }
+    public override string ToString() => $"{Command}#{Parameters}";
 }

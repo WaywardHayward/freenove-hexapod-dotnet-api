@@ -1,12 +1,11 @@
-namespace hexapod_dotnet.Model.Hexapod
+namespace hexapod_dotnet.Model.Hexapod;
+
+public enum Legs
 {
-    public enum Legs
-    {
-        one,
-        two,
-        three,
-        four,
-        five,
-        six
-    }
+    One = 1,
+    Two = 2,
+    Three = 3,
+    Four = 4,
+    Five = 5,
+    Six = 6
 }

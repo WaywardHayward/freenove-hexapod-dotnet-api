@@ -1,59 +1,40 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using hexapod_dotnet.Model.Api;
 using hexapod_dotnet.Model.Hexapod.Getters;
 using hexapod_dotnet.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace hexapod_dotnet.Controllers
+namespace hexapod_dotnet.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class DataController : HexapodController
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class DataController : HexapodController
+    public DataController(ILogger<DataController> logger, IHexapodCommandInvoker invoker)
+        : base(logger, invoker)
     {
+    }
 
-        public DataController(ILogger<DataController> logger, HexapodCommandInvoker invoker)
-            :base(logger, invoker)
+    [HttpGet("Power")]
+    public async Task<ActionResult<PowerResponse>> Power()
+    {
+        var result = await Commander.InvokeCommandAsync(new PowerCommand().ToString()!, expectResponse: true);
+        var parts = result.Split('#');
+        
+        if (parts.Length < 3)
         {
+            Logger.LogWarning("Unexpected power response format: {Response}", result);
+            return BadRequest("Invalid response format from hexapod");
         }
+        
+        return Ok(new PowerResponse(parts[1].Trim(), parts[2].Trim()));
+    }
 
-        [HttpGet("Power")]
-        public async Task<ActionResult> Power()
-        {
-            try
-            {
-                var result = await _commander.InvokeCommand(new PowerCommand().ToString(), true);
-                var battery1 = result.Split('#')[1];
-                var battery2 = result.Split('#')[2];
-                return Ok(new {
-                    Battery1 = battery1.Trim(),
-                    Battery2 = battery2.Trim()
-                });
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Error sending command");
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet("Ultrasonic")]
-        public async Task<ActionResult> Ultrasonic()
-        {
-            try
-            {
-                var result = await _commander.InvokeCommand(new UltrasonicCommand().ToString(), true);
-                return Ok(new {
-                    Distance = result.Split('#').LastOrDefault()?.Trim()
-                });
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Error sending command");
-                return BadRequest(e.Message);
-            }
-        }
-
+    [HttpGet("Ultrasonic")]
+    public async Task<ActionResult<UltrasonicResponse>> Ultrasonic()
+    {
+        var result = await Commander.InvokeCommandAsync(new UltrasonicCommand().ToString()!, expectResponse: true);
+        var distance = result.Split('#').LastOrDefault()?.Trim();
+        
+        return Ok(new UltrasonicResponse(distance));
     }
 }

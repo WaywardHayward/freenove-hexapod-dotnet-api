@@ -3,11 +3,13 @@ using hexapod_dotnet.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Configuration.AddJsonFile("appsettings.json", true).AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json",true).AddEnvironmentVariables();
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
-builder.Services.Configure<Hexapod>(builder.Configuration.GetSection(nameof(Hexapod)));
-builder.Services.AddTransient<HexapodCommandInvoker>();
+builder.Services.Configure<HexapodSettings>(builder.Configuration.GetSection(HexapodSettings.SectionName));
+builder.Services.AddScoped<IHexapodCommandInvoker, HexapodCommandInvoker>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

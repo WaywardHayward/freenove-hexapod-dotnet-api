@@ -1,35 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using hexapod_dotnet.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace hexapod_dotnet.Controllers
+namespace hexapod_dotnet.Controllers;
+
+public abstract class HexapodController : ControllerBase
 {
-    public abstract class HexapodController : ControllerBase
+    protected readonly ILogger Logger;
+    protected readonly IHexapodCommandInvoker Commander;
+    
+    protected HexapodController(ILogger logger, IHexapodCommandInvoker commander)
     {
-        protected readonly ILogger _logger;
-        protected readonly HexapodCommandInvoker _commander;
-        protected HexapodController(ILogger logger, HexapodCommandInvoker commander)
-        {
-            _logger = logger;
-            _commander = commander;
-        }
+        Logger = logger;
+        Commander = commander;
+    }
 
-        protected async Task<ActionResult> InvokeCommand(object command)
+    protected async Task<ActionResult> InvokeCommandAsync(object command)
+    {
+        var commandString = command.ToString();
+        if (string.IsNullOrEmpty(commandString))
         {
-            try
-            {
-                await _commander.InvokeCommand(command.ToString());
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, "Error sending command");
-                return BadRequest(e.Message);
-            }
+            return BadRequest("Command cannot be empty");
         }
-
+        
+        await Commander.InvokeCommandAsync(commandString);
+        return Ok();
     }
 }
